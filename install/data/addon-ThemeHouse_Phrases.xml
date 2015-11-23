@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ThemeHouse_Phrases" title="[⌂] Phrases" version_string="1.0.0" version_id="1442951063" url="http://xf.themehouse.io/" install_callback_class="ThemeHouse_Install" install_callback_method="install" uninstall_callback_class="ThemeHouse_Install" uninstall_callback_method="uninstall">
+  <admin_navigation>
+    <navigation navigation_id="missingAdminPhrases" parent_navigation_id="languagesAndPhrases" display_order="290" link="phrases/missing-admin" admin_permission_id="language" debug_only="0" hide_no_children="0"/>
+    <navigation navigation_id="missingPhrases" parent_navigation_id="languagesAndPhrases" display_order="280" link="phrases/missing" admin_permission_id="language" debug_only="0" hide_no_children="0"/>
+    <navigation navigation_id="orphanPhrases" parent_navigation_id="languagesAndPhrases" display_order="290" link="phrases/orphan" admin_permission_id="language" debug_only="0" hide_no_children="0"/>
+  </admin_navigation>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates>
+    <template title="th_missing_admin_phrase_list_phrases"><![CDATA[<xen:title>{$language.title}: {xen:phrase th_missing_admin_phrases_phrases}</xen:title>
+
+<xen:navigation>
+	<xen:breadcrumb href="{xen:adminlink languages}#{xen:helper listitemid, $language.language_id}">{$language.title}</xen:breadcrumb>
+</xen:navigation>
+
+<xen:topctrl>
+	<a href="{xen:adminlink 'add-ons/phrases/add', {$addOns.{$addOnSelected}}, 'language_id={$language.language_id}'}" class="button" accesskey="a">+ {xen:phrase create_new_phrase}</a>
+</xen:topctrl>
+
+<xen:require css="filter_list.css" />
+<xen:require js="js/xenforo/filter_list.js" />
+
+<xen:include template="th_top_choosers_phrases">
+	<xen:set var="$prefix">missing-admin-phrases</xen:set>
+</xen:include>
+
+<div class="topChoosers">
+	<div class="Popup">
+		<span class="muted">{xen:phrase language}:</span> <a rel="Menu">{$language.title}</a>
+		<div class="Menu">
+			<div class="primaryContent menuHeader"><h3>{xen:phrase languages}</h3></div>
+			<ul class="secondaryContent blockLinksList">
+				<xen:if is="{$masterLanguage}">
+					<li><a href="{xen:adminlink 'languages/phrases', $masterLanguage}"><span class="_depth0">{$masterLanguage.title}</span></a></li>
+				</xen:if>
+				<xen:foreach loop="$languages" key="$_languageId" value="$_language">
+					<li><a href="{xen:adminlink 'languages/phrases', $_language}"><span class="_depth{$_language.depth}">{$_language.title}</span></a></li>
+				</xen:foreach>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<xen:form action="{xen:adminlink languages/missing-admin-phrases, $language}" class="section">
+
+	<h2 class="subHeading">
+		<xen:include template="filter_list_controls" />
+		{xen:phrase th_missing_admin_phrases_phrases}
+	</h2>
+
+	<ol class="FilterList Scrollable" data-ajaxfilter="true">
+		<xen:include template="th_missing_phrase_list_items_phrases">
+			<xen:set var="$templatePrefix">admin-templates</xen:set>
+			<xen:set var="$editTemplatePhrase">{xen:phrase edit_admin_template}</xen:set>
+		</xen:include>
+	</ol>
+
+	<p class="sectionFooter">{xen:phrase showing_x_of_y_items, 'count=<span class="FilterListCount">{xen:count $phrases}</span>', 'total={xen:number $totalPhrases}'}</p>
+
+</xen:form>
+
+{xen:adminpagenav $perPage, $totalPhrases, $page, languages/missing-admin-phrases, $language}]]></template>
+    <template title="th_missing_phrase_list_items_phrases"><![CDATA[<xen:foreach loop="$phrases" value="$phrase">
+	<xen:listitem
+		id="{$phrase.title}"
+		href="{xen:adminlink 'add-ons/phrases/add', {$addOns.{$phrase.addon_id}}, 'title={$phrase.title}', 'language_id={$language.language_id}'}"
+		snippet="{$phrase.template_title}">
+		<xen:html>
+			<a href="{xen:adminlink '{$templatePrefix}/edit', {xen:array 'template_id={$phrase.template_id}', 'title={$phrase.template_title}'}, 'style_id={$phrase.style_id}'}" class="secondaryContent">{$editTemplatePhrase}</a>
+		</xen:html>
+		<xen:label>{$phrase.title}</xen:label>
+	</xen:listitem>
+</xen:foreach>
+<xen:if is="{$filterMore}">
+	<li class="listNote">{xen:phrase more_records_matching_filter_more_specific}</li>
+</xen:if>]]></template>
+    <template title="th_missing_phrase_list_phrases"><![CDATA[<xen:title>{$language.title}: {xen:phrase th_missing_phrases_phrases}</xen:title>
+
+<xen:navigation>
+	<xen:breadcrumb href="{xen:adminlink languages}#{xen:helper listitemid, $language.language_id}">{$language.title}</xen:breadcrumb>
+</xen:navigation>
+
+<xen:topctrl>
+	<a href="{xen:adminlink 'add-ons/phrases/add', {$addOns.{$addOnSelected}}, 'language_id={$language.language_id}'}" class="button" accesskey="a">+ {xen:phrase create_new_phrase}</a>
+</xen:topctrl>
+
+<xen:require css="filter_list.css" />
+<xen:require js="js/xenforo/filter_list.js" />
+
+<xen:include template="th_top_choosers_phrases">
+	<xen:set var="$prefix">missing-admin-phrases</xen:set>
+</xen:include>
+
+<div class="topChoosers">
+	<div class="Popup">
+		<span class="muted">{xen:phrase language}:</span> <a rel="Menu">{$language.title}</a>
+		<div class="Menu">
+			<div class="primaryContent menuHeader"><h3>{xen:phrase languages}</h3></div>
+			<ul class="secondaryContent blockLinksList">
+				<xen:if is="{$masterLanguage}">
+					<li><a href="{xen:adminlink 'languages/phrases', $masterLanguage}"><span class="_depth0">{$masterLanguage.title}</span></a></li>
+				</xen:if>
+				<xen:foreach loop="$languages" key="$_languageId" value="$_language">
+					<li><a href="{xen:adminlink 'languages/phrases', $_language}"><span class="_depth{$_language.depth}">{$_language.title}</span></a></li>
+				</xen:foreach>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<xen:form action="{xen:adminlink languages/missing-phrases, $language}" class="section">
+
+	<h2 class="subHeading">
+		<xen:include template="filter_list_controls" />
+		{xen:phrase th_missing_phrases_phrases}
+	</h2>
+
+	<ol class="FilterList Scrollable" data-ajaxfilter="true">
+		<xen:include template="th_missing_phrase_list_items_phrases">
+			<xen:set var="$templatePrefix">templates</xen:set>
+			<xen:set var="$editTemplatePhrase">{xen:phrase edit_template}</xen:set>
+		</xen:include>
+	</ol>
+
+	<p class="sectionFooter">{xen:phrase showing_x_of_y_items, 'count=<span class="FilterListCount">{xen:count $phrases}</span>', 'total={xen:number $totalPhrases}'}</p>
+
+</xen:form>
+
+{xen:adminpagenav $perPage, $totalPhrases, $page, languages/missing-phrases, $language}]]></template>
+    <template title="th_orphan_phrase_list_phrases"><![CDATA[<xen:title>{$language.title}: {xen:phrase th_orphan_phrases_phrases}</xen:title>
+
+<xen:navigation>
+	<xen:breadcrumb href="{xen:adminlink languages}#{xen:helper listitemid, $language.language_id}">{$language.title}</xen:breadcrumb>
+</xen:navigation>
+
+<xen:require css="filter_list.css" />
+<xen:require js="js/xenforo/filter_list.js" />
+
+<xen:include template="th_top_choosers_phrases">
+	<xen:set var="$prefix">orphan-phrases</xen:set>
+</xen:include>
+
+<div class="topChoosers">
+	<div class="Popup">
+		<span class="muted">{xen:phrase language}:</span> <a rel="Menu">{$language.title}</a>
+		<div class="Menu">
+			<div class="primaryContent menuHeader"><h3>{xen:phrase languages}</h3></div>
+			<ul class="secondaryContent blockLinksList">
+				<xen:if is="{$masterLanguage}">
+					<li><a href="{xen:adminlink 'languages/phrases', $masterLanguage}"><span class="_depth0">{$masterLanguage.title}</span></a></li>
+				</xen:if>
+				<xen:foreach loop="$languages" key="$_languageId" value="$_language">
+					<li><a href="{xen:adminlink 'languages/phrases', $_language}"><span class="_depth{$_language.depth}">{$_language.title}</span></a></li>
+				</xen:foreach>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<xen:form action="{xen:adminlink languages/orphan-phrases, $language}" class="section">
+
+	<h2 class="subHeading">
+		<xen:include template="filter_list_controls" />
+		{xen:phrase phrases}
+	</h2>
+
+	<ol class="FilterList Scrollable" data-ajaxfilter="true">
+		<xen:include template="phrase_list_items" />
+	</ol>
+
+	<p class="sectionFooter">{xen:phrase showing_x_of_y_items, 'count=<span class="FilterListCount">{xen:count $phrases}</span>', 'total={xen:number $totalPhrases}'}</p>
+
+</xen:form>
+
+{xen:adminpagenav $perPage, $totalPhrases, $page, languages/orphan-phrases, $language}]]></template>
+    <template title="th_top_choosers_phrases"><![CDATA[<div class="topChoosers">
+	<div class="Popup">
+		<span class="muted">{xen:phrase add_on}:</span> <a rel="Menu">{xen:if $addOnSelected, {$addOns.{$addOnSelected}.title}, '({xen:phrase unspecified})'}</a>
+		<div class="Menu">
+			<div class="primaryContent menuHeader"><h3>{xen:phrase add_on}</h3></div>
+			<ul class="secondaryContent blockLinksList">
+				<li><a href="{xen:adminlink 'add-ons/languages/{$prefix}', {xen:array 'addon_id=0'}, 'title={$language.title}', 'language_id={$language.language_id}'}">({xen:phrase unspecified})</a></li>
+				<xen:foreach loop="$addOns" value="$addOn">
+					<li><a href="{xen:adminlink 'add-ons/languages/{$prefix}', $addOn, 'title={$language.title}', 'language_id={$language.language_id}'}">{$addOn.title}</a></li>
+				</xen:foreach>
+			</ul>
+		</div>
+	</div>
+</div>
+]]></template>
+  </admin_templates>
+  <admin_template_modifications>
+    <modification template="phrase_list" modification_key="th_phraseList_phrases" description="Adds top chooser to phrase list." execution_order="10" enabled="1" action="preg_replace">
+      <find><![CDATA[#{xen:adminlink 'phrases/add', ''(.*<xen:require js="js/xenforo/filter_list.js" />)#Us]]></find>
+      <replace><![CDATA[{xen:adminlink 'add-ons/phrases/add', {$addOns.{$addOnSelected}}
+${1}
+<xen:include template="th_top_choosers_phrases">
+	<xen:set var="$prefix">phrases</xen:set>
+</xen:include>]]></replace>
+    </modification>
+  </admin_template_modifications>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="controller_pre_dispatch" execute_order="10" callback_class="ThemeHouse_Listener_ControllerPreDispatch" callback_method="controllerPreDispatch" active="1" hint="" description=""/>
+    <listener event_id="file_health_check" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_FileHealthCheck" callback_method="fileHealthCheck" active="1" hint="" description=""/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="ThemeHouse_Listener_InitDependencies" callback_method="initDependencies" active="1" hint="" description=""/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_LoadClass" callback_method="loadClassController" active="0" hint="XenForo_ControllerAdmin_Language" description="XenForo_ControllerAdmin_Language (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_LoadClass" callback_method="loadClassController" active="0" hint="XenForo_ControllerAdmin_Phrase" description="XenForo_ControllerAdmin_Phrase (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="XenForo_Model_Phrase" description="XenForo_Model_Phrase (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_LoadClass" callback_method="loadClassRoutePrefix" active="0" hint="XenForo_Route_PrefixAdmin_AddOns" description="XenForo_Route_PrefixAdmin_AddOns (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_LoadClass" callback_method="loadClassRoutePrefix" active="0" hint="XenForo_Route_PrefixAdmin_Languages" description="XenForo_Route_PrefixAdmin_Languages (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_LoadClass" callback_method="loadClassController" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_LoadClass" callback_method="loadClassModel" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_route_prefix" execute_order="10" callback_class="ThemeHouse_Phrases_Listener_LoadClass" callback_method="loadClassRoutePrefix" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="admin_navigation_missingAdminPhrases" version_id="1422614903" version_string="1.0.0"><![CDATA[Missing Admin Phrases]]></phrase>
+    <phrase title="admin_navigation_missingPhrases" version_id="1422614903" version_string="1.0.0"><![CDATA[Missing Phrases]]></phrase>
+    <phrase title="admin_navigation_orphanPhrases" version_id="1422614903" version_string="1.0.0"><![CDATA[Orphan Phrases]]></phrase>
+    <phrase title="th_missing_phrases_phrases" version_id="1422614903" version_string="1.0.0"><![CDATA[Missing Phrases]]></phrase>
+    <phrase title="th_orphan_phrases_phrases" version_id="1422614903" version_string="1.0.0"><![CDATA[Orphan Phrases]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications>
+    <modification template="footer" modification_key="th_copyrightNotice_phrases" description="Copyright notice for [⌂] Phrases" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
